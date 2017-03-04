@@ -12,6 +12,7 @@ package Database;
 	import java.util.ArrayList;
 	import java.util.List;
 
+import Parks.Jobs.Jobs;
 import model.ParkManagerUser;
 
 	
@@ -31,6 +32,7 @@ import model.ParkManagerUser;
 //		private static String serverName = "localhost:3306//GroupProjectDB";//cssgate.insttech.washington.edu";
 		private static Connection conn;
 		private List<ParkManagerUser> list;
+		private List<Jobs> jobList;
 
 		/**
 		 * Creates a sql connection to MySQL using the properties for
@@ -105,6 +107,43 @@ import model.ParkManagerUser;
 		public void getVolunteers() {
 			
 			 
+		}
+		public List<Jobs> getJobs(ParkManagerUser user) {
+			String query = " SELECT jobId, J.pUserName, J.name, description, status" + "FROM GroupProjectDB.Jobs J "
+					+ "JOIN GroupProjectDB.ParkManager PM" + "ON  PM.pUserName = " + user.getUserId() + " "
+					+ "WHERE J.pUserName = PM.pUserName;";
+			jobList = new ArrayList<Jobs>();
+			if (conn == null) {
+				try {
+					createConnection();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			Statement stmt = null;
+
+			try {
+
+				stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+				while (rs.next()) {
+					int jobId = rs.getInt("jobId");
+					String parkManagerName = rs.getString("J.pUserName");
+					String name = rs.getString("J.name");
+					String discription = rs.getString("discription");
+					String status = rs.getString("status");
+
+					Jobs job = new Jobs(jobId, 0, parkManagerName, name, discription, status);
+					jobList.add(job);
+				}
+			} catch (SQLException e) {
+				System.out.println(e);
+				e.printStackTrace();
+			}
+
+			return null;
+
 		}
 }
 

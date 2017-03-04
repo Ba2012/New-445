@@ -84,17 +84,26 @@ public class JobDB {
 		return list;
 }
 	public void addJob(Jobs theJob) {
+		if(conn==null){
+			try {
+				createConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		String sql = "insert into GroupProjectDB.Jobs values " 
 				+ "(?,?,?,?,?,?); ";
-		PreparedStatement preparedStatement = null;
+		
+		PreparedStatement preparedStatement;
 		try{
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setInt(1, theJob.getMyJobId());
 			preparedStatement.setInt(2, theJob.getMyParkId());
 			preparedStatement.setString(3, theJob.getMyPUserName());
 			preparedStatement.setString(4,  theJob.getMyName());
-			preparedStatement.setString(4,  theJob.getMyDescription());
-			preparedStatement.setString(4,  theJob.getMyStatus());
+			preparedStatement.setString(5,  theJob.getMyDescription());
+			preparedStatement.setString(6,  theJob.getMyStatus());
+			preparedStatement.executeUpdate();
 			
 		} catch(SQLException e) {
 			System.out.println(e);

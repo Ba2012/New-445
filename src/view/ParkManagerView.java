@@ -21,7 +21,9 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import Database.JobDB;
 import Database.VolunteerUserDB;
+import Parks.Jobs.Jobs;
 import authentication.Login;
 import authentication.LoginDialog;
 import model.VolunteerUser;
@@ -41,7 +43,8 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 		private static final long serialVersionUID = 1779520078061383929L;
 		private JButton btnList, btnSearch, btnAddVol, btnDelete, btnJob, btnListJobs;
 		private JPanel pnlButtons, pnlContent;
-		private VolunteerUserDB db;
+		private VolunteerUserDB volunteerDB;
+		private JobDB jobDB;
 		private List<VolunteerUser> list;
 		private String[] columnNames = {"userId",
 	            "First Name",
@@ -84,10 +87,11 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 		public ParkManagerView() {
 			super("Volunteers");
 			
-			db = new VolunteerUserDB();
+			volunteerDB = new VolunteerUserDB();
+			jobDB = new JobDB();
 			try
 			{
-				list = db.getVolunteers();
+				list = volunteerDB.getVolunteers();
 				
 				data = new Object[list.size()][columnNames.length];
 				for (int i=0; i<list.size(); i++) {
@@ -245,7 +249,7 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnList) {
 				try {
-					list = db.getVolunteers();
+					list = volunteerDB.getVolunteers();
 				} catch (SQLException e1) {
 					
 					e1.printStackTrace();
@@ -284,7 +288,7 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 			} else if (e.getSource() == btnFNameSearch) {
 				String name = txfName.getText();
 				if (name.length() > 0) {
-					list = db.getUser(name);
+					list = volunteerDB.getUser(name);
 					data = new Object[list.size()][columnNames.length];
 					for (int i=0; i<list.size(); i++) {
 						//data[i][0] = list.get(i).getUserId();
@@ -310,8 +314,8 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 				VolunteerUser user = new VolunteerUser(Math.abs(rd.nextInt(1000)), txfField[0].getText()
 						,txfField[1].getText(), txfField[2].getText(), txfField[3].getText(), txfField[4].getText(),
 						Integer.parseInt(txfField[5].getText()), txfField[6].getText(), txfField[7].getText());
-				db.addUser(user);
-				JOptionPane.showMessageDialog(null, "Added Successfully!");
+				volunteerDB.addUser(user);
+				JOptionPane.showMessageDialog(null, "Volunteer added Successfully!");
 				for (int i=0; i<txfField.length; i++) {
 					txfField[i].setText("");
 				}
@@ -330,21 +334,27 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 				String lname = deleteField[1].getText();
 				int id = Integer.parseInt(deleteField[2].getText());
 				try {
-					db.deleteUser(id, fname, lname);
+					volunteerDB.deleteUser(id, fname, lname);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				//FIX THIS!
-			}// else if (e.getSource() == btnJob){ 
-//				pnlContent.removeAll();
-//				pnlContent.add(pnlDelete);
-//				pnlContent.revalidate();
-//				this.repaint();					
-//			} else if(e.getSource()==btnAddJob) {
-//				
-//				
-//			}
+			} else if (e.getSource() == btnJob){ 
+				pnlContent.removeAll();
+				pnlContent.add(pnlAddJobs);
+				pnlContent.revalidate();
+				this.repaint();					
+			} else if(e.getSource()==btnAddJob) {
+				Jobs newJob = new Jobs(Integer.parseInt(jobsField[0].getText()), Integer.parseInt(jobsField[1].getText()),
+						jobsField[2].getText(), jobsField[3].getText(), jobsField[4].getText(), "Availible");
+				
+				jobDB.addJob(newJob);
+				JOptionPane.showMessageDialog(null, "Job added Successfully!");
+//				for(int i = 0; i<jobsField.length; i++) {
+//					jobsField[i].setText("");
+//				}
+			}
 			
 		}
 
@@ -359,7 +369,7 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 	        String columnName = model.getColumnName(column);
 	        Object data = model.getValueAt(row, column);
 	        
-	        db.updateMovie(row, columnName, data);
+	        volunteerDB.updateMovie(row, columnName, data);
 			
 		}
 		

@@ -1,7 +1,5 @@
 package authentication;
 
-import java.sql.SQLException;
-
 import Database.VolunteerUserDB;
 import model.ParkManagerUser;
 import model.VolunteerUser;
@@ -25,16 +23,11 @@ public class Login {
     public static boolean authenticate(String username, String password) {
         // hard-coded user-name and password
     	
-    	try {
-			isVolunteer = myVDB.getVolunteers().contains(username);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-        if (username.equals("b") && password.equals("s")) {
+        if (username.equals("Bryce") && password.equals("school")|| username.equals("Larry") && password.equals("banana")) {
         	isManager = true;
         	isVolunteer = false;
             return true;
-        } else if (username.equals("mary") && password.equals("female")) {
+        } else if (username.equals("John") && password.equals("anything")|| username.equals("Ethan") && password.equals("Qwerty")) {
         	isManager = false;
         	isVolunteer = true;
         	return true;

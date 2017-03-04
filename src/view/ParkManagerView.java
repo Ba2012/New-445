@@ -26,7 +26,7 @@ import authentication.Login;
 import authentication.LoginDialog;
 import model.VolunteerUser;
 
-public class TestGUI extends JFrame implements ActionListener, TableModelListener {
+public class ParkManagerView extends JFrame implements ActionListener, TableModelListener {
 
 	/**
 	 * A user interface to view the movies, add a new movie and to update an existing movie.
@@ -39,7 +39,7 @@ public class TestGUI extends JFrame implements ActionListener, TableModelListene
 
 		
 		private static final long serialVersionUID = 1779520078061383929L;
-		private JButton btnList, btnSearch, btnAdd, btnDelete;
+		private JButton btnList, btnSearch, btnAddVol, btnDelete, btnJob, btnListJobs;
 		private JPanel pnlButtons, pnlContent;
 		private VolunteerUserDB db;
 		private List<VolunteerUser> list;
@@ -61,20 +61,27 @@ public class TestGUI extends JFrame implements ActionListener, TableModelListene
 		private JTextField txfName;
 		private JButton btnFNameSearch;
 		
-		private JPanel pnlAdd;
+		private JPanel pnlAddVol;
 		private JLabel[] txfLabel = new JLabel[8];
 		private JTextField[] txfField = new JTextField[8];
 		private JButton btnAddVolunteer;
+		
+		private JPanel pnlAddJobs;
+		private JLabel[] jobLabels = new JLabel[6];
+		private JTextField[] jobsField = new JTextField[6];
+		private JButton btnAddJob;
 		
 		private JPanel pnlDelete;
 		private JLabel[] deleteLabel = new JLabel[3];
 		private JTextField[] deleteField = new JTextField[3];
 		private JButton btnDeleteVolunteer;
 		
+		
+		
 		/**
 		 * Creates the frame and components and launches the GUI.
 		 */
-		public TestGUI() {
+		public ParkManagerView() {
 			super("Volunteers");
 			
 			db = new VolunteerUserDB();
@@ -118,16 +125,20 @@ public class TestGUI extends JFrame implements ActionListener, TableModelListene
 			btnSearch = new JButton("Volunteer Search");
 			btnSearch.addActionListener(this);
 			
-			btnAdd = new JButton("Add Volunteer");
-			btnAdd.addActionListener(this);
+			btnAddVol = new JButton("Add Volunteer");
+			btnAddVol.addActionListener(this);
 			
 			btnDelete = new JButton("Delete Volunteer");
 			btnDelete.addActionListener(this);
 			
+			btnJob = new JButton("Add Job");
+			btnJob.addActionListener(this);
+			
 			pnlButtons.add(btnList);
 			pnlButtons.add(btnSearch);
-			pnlButtons.add(btnAdd);
+			pnlButtons.add(btnAddVol);
 			pnlButtons.add(btnDelete);
+			pnlButtons.add(btnJob);
 			add(pnlButtons, BorderLayout.NORTH);
 			
 			//List Panel
@@ -169,9 +180,9 @@ public class TestGUI extends JFrame implements ActionListener, TableModelListene
 			pnlSearch.add(txfName);
 			pnlSearch.add(btnFNameSearch);
 			
-			//Add Panel
-			pnlAdd = new JPanel();
-			pnlAdd.setLayout(new GridLayout(9, 0));
+			//Add Volunteer Panel
+			pnlAddVol = new JPanel();
+			pnlAddVol.setLayout(new GridLayout(9, 0));
 			String labelNames[] = {"Enter First Name: ", "Enter Last Name: ", "Enter Street Address: ", "Enter City: ",
 					"Enter State: ", "Enter Zipcode: ", "Enter Email: ", "Enter Phone Number: "};
 			for (int i=0; i<labelNames.length; i++) {
@@ -180,18 +191,39 @@ public class TestGUI extends JFrame implements ActionListener, TableModelListene
 				txfField[i] = new JTextField(10);
 				panel.add(txfLabel[i]);
 				panel.add(txfField[i]);
-				pnlAdd.add(panel);
+				pnlAddVol.add(panel);
 			}
 			JPanel panel = new JPanel();
 			btnAddVolunteer = new JButton("Add");
 			btnAddVolunteer.addActionListener(this);
 			panel.add(btnAddVolunteer);
-			pnlAdd.add(panel);
+			pnlAddVol.add(panel);
 			
 			add(pnlContent, BorderLayout.CENTER);
 			
-			
+			//add job panel
+			pnlAddJobs = new JPanel();
+			pnlAddJobs.setLayout(new GridLayout(6, 0));
+			String addJobNames[] = {"Enter Job ID Number: ", "Enter Your Park ID: ", "Enter Your UserName: " ,					
+					"Enter the Name of the Job: ","Enter a Job Description: "};
+		for (int i=0; i<addJobNames.length; i++) {
+			JPanel JobPanel = new JPanel();
+			jobLabels[i] = new JLabel (addJobNames[i]);
+			jobsField[i] = new JTextField(10);
+			JobPanel.add(jobLabels[i]);
+			JobPanel.add(jobsField[i]);
+			pnlAddJobs.add(JobPanel);
 		}
+		JPanel thePanel = new JPanel();
+		btnAddJob = new JButton("Add Job");
+		btnAddJob.addActionListener(this);
+		thePanel.add(btnAddJob);
+		pnlAddJobs.add(thePanel);
+		
+		
+		
+		}	
+		
 
 		/**
 		 * @param args
@@ -201,7 +233,7 @@ public class TestGUI extends JFrame implements ActionListener, TableModelListene
 		}
 		
 		public static void displayDatabase() {
-			TestGUI testGUI = new TestGUI();
+			ParkManagerView testGUI = new ParkManagerView();
 			testGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 
@@ -243,9 +275,9 @@ public class TestGUI extends JFrame implements ActionListener, TableModelListene
 				pnlContent.add(pnlSearch);
 				pnlContent.revalidate();
 				this.repaint();
-			} else if (e.getSource() == btnAdd) {
+			} else if (e.getSource() == btnAddVol) {
 				pnlContent.removeAll();
-				pnlContent.add(pnlAdd);
+				pnlContent.add(pnlAddVol);
 				pnlContent.revalidate();
 				this.repaint();
 				
@@ -303,8 +335,16 @@ public class TestGUI extends JFrame implements ActionListener, TableModelListene
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-			}
+				//FIX THIS!
+			}// else if (e.getSource() == btnJob){ 
+//				pnlContent.removeAll();
+//				pnlContent.add(pnlDelete);
+//				pnlContent.revalidate();
+//				this.repaint();					
+//			} else if(e.getSource()==btnAddJob) {
+//				
+//				
+//			}
 			
 		}
 

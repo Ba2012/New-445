@@ -1,0 +1,87 @@
+
+DROP TABLE IF EXISTS Volunteer;
+DROP TABLE IF EXISTS Jobs;
+DROP TABLE IF EXISTS Park;
+DROP TABLE IF EXISTS ParkManager;
+DROP TABLE IF EXISTS VolunteerJoinJob;
+
+
+
+CREATE TABLE Jobs (
+	jobId INT PRIMARY KEY,
+	parkId INT,
+	pUserName VARCHAR(50),
+	`name` VARCHAR(50),
+	description VARCHAR(75),
+	`status` VARCHAR(50)
+	);
+	
+CREATE TABLE Park (
+	parkId INT PRIMARY KEY,
+	pUserName VARCHAR(50),
+	`name` VARCHAR(50),
+	street VARCHAR(50),
+	city VARCHAR(50),
+	state VARCHAR(50),
+	zipcode INT
+	);
+	
+	
+CREATE TABLE ParkManager (
+	pUserName VARCHAR(50) PRIMARY KEY,
+	parkId INT,
+	`password` VARCHAR(50),
+	`name` VARCHAR(50)
+	);
+
+CREATE TABLE Volunteer (
+	userId INT PRIMARY KEY AUTO_INCREMENT,
+	firstName VARCHAR(50),
+	lastName VARCHAR(50),
+	street VARCHAR(50),
+	city VARCHAR(30),
+	state VARCHAR(50),
+	zipcode INT,
+	email VARCHAR(50),
+	phone VARCHAR(20)
+);
+
+CREATE TABLE VolunteerJoinJob (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	jobId INT,
+	userId INT 
+	);
+
+INSERT INTO Volunteer VALUES
+(userId,'Pretty', 'Woman', '1990','city', 'state', 119, 'romance', 'Disney'),
+(userId,'Star', 'Wars', '1977','city', 'state', 124, 'SciFi', 'Fox'),
+(userId,'Wayne\'s', 'World', '1992','city', 'state', 95, 'comedy', 'Paramount'),
+(userId,'Gone With', 'the Wind', '1939','city', 'state', 231, 'drama', 'MGM Studios'),
+(userId,'Galaxy', 'Quest', '1999','city', 'state', 104, 'comedy', 'DreamWorks'),
+(userId,'Love', 'Story', '1970','city', 'state', 104, 'drama', 'Paramount'),
+(userId,'Ordinary', 'People', '1980','city', 'state', 124, 'drama', 'Paramount'),
+(userId,'Titanic','Story', '1997','city','state', 194,  'drama', 'Fox'),
+(userId,'Golden', 'Eye', '1995','city','state', 130,  'action', 'MGM Studios'),
+(userId,'Get', 'Shorty', '1995','city', 'state',105,  'comedy', 'MGM Studios');
+
+	
+INSERT INTO ParkManager VALUES
+('GeorgeW', 001, 'GWashington', 'George Washington'),
+('AbeL', 002, 'ALincon', 'Abraham Lincon'),
+('BarockO', 003, 'BObama', 'Barock Obama'),
+('DonaldT', 004, 'DTrump', 'Donald Trump');
+
+
+INSERT INTO Park VALUES
+(001, 'GeorgeW', 'Cherry Park', '123rd', 'Tacoma', 'Washington', 98675),
+(002, 'AbeL', 'Wright Park', '123rd', 'Tacoma', 'Washington', 98675),
+(003, 'BarockO', 'Bradly Lake Park', '109th', 'Puyallup', 'Washington', 98675),
+(004, 'DonaldT', 'Spanaway Lake Park', '180th', 'Spanaway', 'Washington', 98675);
+	
+	
+INSERT INTO Jobs VALUES
+(1,001, 'GeorgeW', 'Cleaning up trash', 'Picking up trash around Cherry Park','Avalible'),
+(2,002, 'AbeL', 'Cleaning up trash', 'Picking up trash around Wright Park','Avalible'),
+(3,003, 'BarockO', 'Cleaning up trash', 'Picking up trash around Bradley Park','Avalible'),
+(4,004, 'DonaldT', 'Cleaning up trash', 'Picking up trash around Spanaway Lake Park','Avalible');
+ 

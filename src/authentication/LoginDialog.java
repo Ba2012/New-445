@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import view.UrbanParksMain;
+//import view.UrbanParksMain;
+import view.LoginUIMain;
  
 public class LoginDialog extends JDialog {
  
@@ -69,7 +70,8 @@ public class LoginDialog extends JDialog {
                             JOptionPane.INFORMATION_MESSAGE);
                     succeeded = true;
                     try {
-						UrbanParksMain.start();
+                    	LoginUIMain.start();
+//						UrbanParksMain.start();
 					} catch (ClassNotFoundException e1) {
 						e1.printStackTrace();
 					} catch (IOException e1) {
@@ -78,7 +80,8 @@ public class LoginDialog extends JDialog {
 						e1.printStackTrace();
 					}
                     dispose();
-                    UrbanParksMain.closeFrame();
+                    LoginUIMain.closeLoginFrame();
+//                    UrbanParksMain.closeFrame();
                 } else {
                     JOptionPane.showMessageDialog(LoginDialog.this,
                             "Invalid username or password",

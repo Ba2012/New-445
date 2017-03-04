@@ -1,21 +1,31 @@
-
-	import java.awt.BorderLayout;
-	import java.awt.GridLayout;
-	import java.awt.event.ActionEvent;
-	import java.awt.event.ActionListener;
-	import java.sql.SQLException;
-	import java.util.List;
+package view;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Random;
 
-import javax.swing.*;
-	import javax.swing.event.TableModelEvent;
-	import javax.swing.event.TableModelListener;
-	import javax.swing.table.TableModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 import Database.VolunteerUserDB;
+import authentication.Login;
+import authentication.LoginDialog;
 import model.VolunteerUser;
 
-import model.VolunteerUser;
 public class TestGUI extends JFrame implements ActionListener, TableModelListener {
 
 	/**
@@ -186,11 +196,13 @@ public class TestGUI extends JFrame implements ActionListener, TableModelListene
 		/**
 		 * @param args
 		 */
-		public static void main(String[] args)
-		{
+		public static void main(String[] args) {
+			LoginUIMain.loginUI();
+		}
+		
+		public static void displayDatabase() {
 			TestGUI testGUI = new TestGUI();
 			testGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		}
 
 		/**

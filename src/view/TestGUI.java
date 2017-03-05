@@ -1,10 +1,8 @@
 package view;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
@@ -22,8 +20,6 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 import Database.VolunteerUserDB;
-import authentication.Login;
-import authentication.LoginDialog;
 import model.VolunteerUser;
 
 public class TestGUI extends JFrame implements ActionListener, TableModelListener {

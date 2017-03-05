@@ -19,7 +19,7 @@ public class LoginUIMain {
     private static JFrame loginframe;
     
     static {
-    	loginframe = new JFrame();
+    	loginframe = new JFrame("Welcome to Urban parks!");
     }
 
 	/**
@@ -29,9 +29,20 @@ public class LoginUIMain {
 		loginUI();
 	}
 	
+	/**
+	 * Displays the Park manager GUI.
+	 */
 	public static void displayDatabase() {
 		TestGUI testGUI = new TestGUI();
 		testGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	/** 
+	 * Displays the volunteer GUI.
+	 */
+	public static void displayVolDatabase() {
+		VolunteerView vv = new VolunteerView();
+		vv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	/**
@@ -51,7 +62,7 @@ public class LoginUIMain {
     		
     	} else if (l.isVolunteer()) {
     		// display specific type of database
-    		displayDatabase();
+    		displayVolDatabase();
     	}       			
     }
 	

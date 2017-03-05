@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Parks.Jobs.Jobs;
+import model.JobUser;
 
 public class JobDB {
 
@@ -24,7 +25,7 @@ public class JobDB {
 	// private static String serverName =
 	// "localhost:3306//GroupProjectDB";//cssgate.insttech.washington.edu";
 	private static Connection conn;
-	private List<Jobs> list;
+	private List<JobUser> list;
 
 	/**
 	 * Creates a sql connection to MySQL using the properties for userid,
@@ -46,14 +47,14 @@ public class JobDB {
 	}
 
 	
-	public List<Jobs> getJobs() throws SQLException{
+	public List<JobUser> getJobs() throws SQLException{
 		if(conn==null){
 			createConnection();
 		}
 		Statement stmt = null;
 		String query = "select jobId, parkId, pUserName, name, discription, status"
 				+ " from GroupProjectDB.Jobs ";
-		list = new ArrayList<Jobs>();
+		list = new ArrayList<JobUser>();
 		
 		
 		
@@ -69,7 +70,7 @@ public class JobDB {
 				String status = rs.getString("status");
 				
 				
-				Jobs job = new Jobs(jobId, parkId, parkManagerName, name, discription, status);
+				JobUser job = new JobUser(jobId, parkId, parkManagerName, name, discription, status);
 				list.add(job);
 			}
 		

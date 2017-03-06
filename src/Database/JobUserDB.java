@@ -51,7 +51,7 @@ static final String JDBC_DRIVER =
 		}
 		Statement stmt = null;
 		String query = "select jobId, parkId, PUserName, jobName, jobDescription, status,"
-				+ "from GroupProjectDB.volunteerJobs ";
+				+ "from GroupProjectDB.VolunteerJobs ";
 
 		list = new ArrayList<JobUser>();
 		try {
@@ -102,7 +102,7 @@ static final String JDBC_DRIVER =
 	 * @param user 
 	 */
 	public void addJob(JobUser user) {
-		String sql = "insert into GroupProjectDB.volunteerJobs values " + "(?, ?, ?, ?, ?, ?, ?, ?, ?); ";
+		String sql = "insert into GroupProjectDB.VolunteerJobs values " + "(?, ?, ?, ?, ?, ?, ?, ?, ?); ";
 		PreparedStatement preparedStatement = null;			
 		try {
 			preparedStatement = conn.prepareStatement(sql);
@@ -129,7 +129,7 @@ static final String JDBC_DRIVER =
 		JobUser user = list.get(row);
 		int id = user.getMyJobId();
 		String jobName = user.getMyName();
-		String sql = "update GroupProjectDB.volunteer set " + columnName + " = ?  where jobId = ? and jobName = ? ";
+		String sql = "update GroupProjectDB.Volunteer set " + columnName + " = ?  where jobId = ? and jobName = ? ";
 		System.out.println(sql);
 		PreparedStatement preparedStatement = null;
 		try {
@@ -151,7 +151,7 @@ static final String JDBC_DRIVER =
 	}
 	
 	public void deleteUser(int jobId,String jobName, String jobDescription) throws SQLException {			
-		String sql = "delete from GroupProjectDB.volunteerJobs where jobId = ? and jobName = ? and jobDescription = ?";
+		String sql = "delete from GroupProjectDB.VolunteerJobs where jobId = ? and jobName = ? and jobDescription = ?";
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = conn.prepareStatement(sql);

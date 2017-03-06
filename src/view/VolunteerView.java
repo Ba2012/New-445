@@ -38,7 +38,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 
 		
 		private static final long serialVersionUID = 1779520078061383929L;
-		private JButton btnView , btnSignUp, btnCancel;
+		private JButton btnView , btnSearch, btnAdd, btnDelete;
 		private JPanel pnlButtons, pnlContent;
 		private JobUserDB db;
 		private List<JobUser> list;
@@ -107,15 +107,18 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 			btnView = new JButton("View Jobs");
 			btnView.addActionListener(this);
 			
-			btnSignUp = new JButton("Search Jobs");
-			btnSignUp.addActionListener(this);
+			btnSearch = new JButton("Search Jobs");
+			btnSearch.addActionListener(this);
 			
-			btnCancel = new JButton("Cancel Job");
-			btnCancel.addActionListener(this);
+			btnAdd = new JButton("Add Jobs");
+			btnAdd.addActionListener(this);
+			
+			btnDelete = new JButton("Cancel Job");
+			btnDelete.addActionListener(this);
 			
 			pnlButtons.add(btnView );
-			pnlButtons.add(btnSignUp);
-			pnlButtons.add(btnCancel);
+			pnlButtons.add(btnSearch);
+			pnlButtons.add(btnDelete);
 			add(pnlButtons, BorderLayout.NORTH);
 			
 			//List Panel
@@ -187,11 +190,6 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 		public static void main(String[] args) {
 			LoginUIMain.loginUI();
 		}
-		
-//		public static void displayDatabase() {
-//			VolunteerView vv = new VolunteerView();
-//			vv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		}
 
 		/**
 		 * Event handling to change the panels when different tabs are clicked,
@@ -223,12 +221,13 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 				pnlContent.revalidate();
 				this.repaint();
 				
-			} else if (e.getSource() == btnSignUp) {
+			} else if (e.getSource() == btnSearch) {
+				btnSearch.setText("Sign Up");
 				pnlContent.removeAll();
 				pnlContent.add(pnlSearch);
 				pnlContent.revalidate();
 				this.repaint();
-			} else if (e.getSource() == btnCancel) {
+			} else if (e.getSource() == btnAdd) {
 				pnlContent.removeAll();
 				pnlContent.add(pnlAdd);
 				pnlContent.revalidate();
@@ -264,7 +263,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 				for (int i=0; i<txfField.length; i++) {
 					txfField[i].setText("");
 				}
-			} else if (e.getSource() == btnCancel) {
+			} else if (e.getSource() == btnDelete) {
 				pnlContent.removeAll();
 				pnlContent.add(pnlDelete);
 				pnlContent.revalidate();

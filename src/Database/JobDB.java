@@ -52,7 +52,7 @@ public class JobDB {
 			createConnection();
 		}
 		Statement stmt = null;
-		String query = "select jobId, parkId, pUserName, name, discription, status"
+		String query = "select jobId, parkId, PUserName, jobName, jobDescription, status"
 				+ " from GroupProjectDB.Jobs ";
 		list = new ArrayList<JobUser>();
 		
@@ -64,13 +64,13 @@ public class JobDB {
 			while (rs.next()) {
 				int jobId = rs.getInt("jobId");
 				int parkId = rs.getInt("parkId");
-				String parkManagerName = rs.getString("pUserName");
-				String name = rs.getString("name");
-				String discription = rs.getString("discription");
+				String PUserName = rs.getString("PUserName");
+				String jobName = rs.getString("jobName");
+				String jobDescription = rs.getString("jobDescription");
 				String status = rs.getString("status");
 				
 				
-				JobUser job = new JobUser(jobId, parkId, parkManagerName, name, discription, status);
+				JobUser job = new JobUser(jobId, parkId, PUserName, jobName, jobDescription, status);
 				list.add(job);
 			}
 		

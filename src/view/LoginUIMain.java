@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -17,6 +18,7 @@ public class LoginUIMain {
      * Instantiating login GUI.
      */
     private static JFrame loginframe;
+	private static ImageIcon image = new ImageIcon("src/image/databaseIcon.png");
     
     static {
     	loginframe = new JFrame("Welcome to Urban parks!");
@@ -35,6 +37,8 @@ public class LoginUIMain {
 	public static void displayDatabase() {
 		TestGUI testGUI = new TestGUI();
 		testGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		testGUI.setLocationRelativeTo(loginframe);
+		testGUI.setIconImage(image.getImage());
 	}
 	
 	/** 
@@ -43,6 +47,8 @@ public class LoginUIMain {
 	public static void displayVolDatabase() {
 		VolunteerView vv = new VolunteerView();
 		vv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		vv.setLocationRelativeTo(loginframe);
+		vv.setIconImage(image.getImage());
 	}
 	
 	/**
@@ -57,16 +63,18 @@ public class LoginUIMain {
         Login l = new Login();
 
     	if (l.isManager()) {
-    		// display specific type of database
+    		// display park manager type of database
     		displayDatabase();
     		
     	} else if (l.isVolunteer()) {
-    		// display specific type of database
+    		// display volunteer type of database
     		displayVolDatabase();
     	}       			
     }
 	
-	
+	/**
+	 * Method that sets the login frame for user-name and password.
+	 */
     public static void loginUI() {
         final JButton btnLogin = new JButton("Click to login");
  
@@ -84,6 +92,8 @@ public class LoginUIMain {
  
         loginframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginframe.setSize(300, 100);
+        loginframe.setLocationRelativeTo(btnLogin);
+        loginframe.setIconImage(image.getImage());
         loginframe.setLayout(new FlowLayout());
         loginframe.getContentPane().add(btnLogin);
         loginframe.setVisible(true);

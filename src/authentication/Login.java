@@ -11,7 +11,7 @@ public class Login {
 	private static boolean isManager;
 	
 	private static boolean isVolunteer;
-	public VolunteerUser myVolUser;
+	public static VolunteerUser myVolUser;
 	public ParkManagerUser myPMUser;
 	public static VolunteerUserDB myVDB;
 	
@@ -30,6 +30,8 @@ public class Login {
         } else if (username.equals("John") && password.equals("anything")|| username.equals("Ethan") && password.equals("Qwerty")) {
         	isManager = false;
         	isVolunteer = true;
+        	myVolUser = new VolunteerUser();
+        	myVolUser.setMyUserId(1);
         	return true;
         }
         return false;

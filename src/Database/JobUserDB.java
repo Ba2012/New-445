@@ -22,7 +22,7 @@ static final String JDBC_DRIVER =
 	      "jdbc:mariadb://localhost:3306/GroupProjectDB";
 	   
 		static final String DB_USER = "root";
-		static final String DB_PASS = "";
+		static final String DB_PASS = "1234";
 		
 //	private static String userName = "root";//"ba2012"; //Change to yours
 //	private static String password = "1234"; //piabMect";
@@ -102,12 +102,12 @@ static final String JDBC_DRIVER =
 	 * Adds a new user to the table.
 	 * @param theJob 
 	 */
-	public void addJob(JobUser theJob, VolunteerUser theVol) {
-		String sql = "insert into GroupProjectDB.VolunteerJoinJob values (?, ?); ";
+	public void addJob(int theJob, VolunteerUser theVol) {
+		String sql = "INSERT INTO GroupProjectDB.VolunteerJoinJob(jobId,userId)  VALUES( ?, ?); ";
 		PreparedStatement preparedStatement = null;			
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setInt(1, theJob.getMyJobId());
+			preparedStatement.setInt(1, theJob);
 			preparedStatement.setInt(2, theVol.getMyUserId());			
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {

@@ -9,7 +9,6 @@ package Database;
 	import java.sql.Statement;
 	import java.util.ArrayList;
 	import java.util.List;
-	import java.util.Properties;
 	import model.VolunteerUser;
 	
 	
@@ -23,7 +22,7 @@ public class VolunteerUserDB {
 		      "jdbc:mariadb://localhost:3306/GroupProjectDB";
 		   
 			static final String DB_USER = "root";
-			static final String DB_PASS = "";
+			static final String DB_PASS = "1234";
 			
 //		private static String userName = "root";//"ba2012"; //Change to yours
 //		private static String password = "1234"; //piabMect";

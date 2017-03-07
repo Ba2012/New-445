@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,7 +58,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 		private JPanel pnlSearch;
 		private JLabel lblName;;
 		private JTextField txfName;
-		private JButton btnFNameSearch;
+		private JButton btnSignUp;
 		
 		private JPanel pnlAdd;
 		private JLabel[] txfLabel = new JLabel[8];
@@ -68,6 +69,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 		private JLabel[] deleteLabel = new JLabel[3];
 		private JTextField[] deleteField = new JTextField[3];
 		private JButton btnDeleteJob;
+		private JButton pnlCancel;
 		
 		/**
 		 * Creates the frame and components and launches the GUI.
@@ -117,11 +119,11 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 			btnAdd = new JButton("Add Jobs");
 			btnAdd.addActionListener(this);
 			
-			btnDelete = new JButton("Cancel Job");
+			btnDelete = new JButton("View/Cancel Job");
 			btnDelete.addActionListener(this);
 			
 			pnlButtons.add(btnView );
-			pnlButtons.add(btnSearch);
+//			pnlButtons.add(btnSearch);
 			pnlButtons.add(btnDelete);
 			add(pnlButtons, BorderLayout.NORTH);
 			
@@ -135,7 +137,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 			//Delete panel
 			pnlDelete = new JPanel();
 //			pnlDelete.setLayout(new GridLayout(0, 3));
-			String deleteName[] = {"Job ID: ", "Job Name: ", "Park ID: "};
+			String deleteName[] = {"Job ID: "};
 			for(int i=0; i<deleteName.length; i++){
 				JPanel panel = new JPanel();
 				deleteLabel[i] = new JLabel(deleteName[i]);
@@ -145,7 +147,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 				pnlDelete.add(panel);
 			}
 			JPanel dPanel = new JPanel();
-			btnDeleteJob = new JButton("Delete");
+			btnDeleteJob = new JButton("Cancel");
 			btnDeleteJob.addActionListener(this);
 			dPanel.add(btnDeleteJob);
 			pnlDelete.add(dPanel);
@@ -154,15 +156,16 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 			add(pnlContent, BorderLayout.CENTER);
 			
 			
+			
 			//Search Panel
 			pnlSearch = new JPanel();
 			lblName = new JLabel("Enter Job ID: ");
 			txfName = new JTextField(25);
-			btnFNameSearch = new JButton("Sign Up");
-			btnFNameSearch.addActionListener(this);
+			btnSignUp = new JButton("Sign Up");
+			btnSignUp.addActionListener(this);
 			pnlSearch.add(lblName);
 			pnlSearch.add(txfName);
-			pnlSearch.add(btnFNameSearch);
+			pnlSearch.add(btnSignUp);
 			
 			//Add Panel
 			pnlAdd = new JPanel();
@@ -229,31 +232,18 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 				pnlContent.add(scrollPane);
 				pnlContent.revalidate();
 				this.repaint();
-				
-			} else if (e.getSource() == btnSearch) {
-				pnlContent.removeAll();
-				pnlContent.add(pnlSearch);
-				pnlContent.revalidate();
-				this.repaint();
 			} else if (e.getSource() == btnAdd) {
 				pnlContent.removeAll();
 				pnlContent.add(pnlAdd);
 				pnlContent.revalidate();
 				this.repaint();
 				
-			} else if (e.getSource() == btnFNameSearch) {
+			} else if (e.getSource() == btnSignUp) {
 				String name = txfName.getText();
 				if (name.length() > 0) {
-					list = db.getJob(name);
-					data = new Object[list.size()][columnNames.length];
-					for (int i=0; i<list.size(); i++) {
-						data[i][0] = list.get(i).getMyJobId();
-						data[i][1] = list.get(i).getParkId();
-						data[i][2] = list.get(i).getPUserName();
-						data[i][3] = list.get(i).getMyName();
-						data[i][4] = list.get(i).getMyDescription();
-						data[i][5] = list.get(i).getMyStatus();	
-					}
+					int newInt = Integer.parseInt(txfName.getText());
+					// SQL QUERY
+					db.addJob(newInt, myVol);
 					pnlContent.removeAll();
 					table = new JTable(data, columnNames);
 					table.getModel().addTableModelListener(this);
@@ -266,16 +256,48 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 				Random rd = new Random();
 				JobUser job = new JobUser(Math.abs(rd.nextInt(1000)), Integer.parseInt(txfField[0].getText())
 						,txfField[1].getText(), txfField[2].getText(), txfField[3].getText(), txfField[4].getText());
-				db.addJob(job, myVol);
+//				db.addJob(job, myVol);
 				JOptionPane.showMessageDialog(null, "Added Successfully!");
 				for (int i=0; i<txfField.length; i++) {
 					txfField[i].setText("");
 				}
 			} else if (e.getSource() == btnDelete) {
+				try {
+					list = db.getJobs();
+				} catch (SQLException e1) {
+					
+					e1.printStackTrace();
+				}
+				data = new Object[list.size()][columnNames.length];
+				for (int i=0; i<list.size(); i++) {
+					data[i][0] = list.get(i).getMyJobId();
+					data[i][1] = list.get(i).getParkId();
+					data[i][2] = list.get(i).getPUserName();
+					data[i][3] = list.get(i).getMyName();
+					data[i][4] = list.get(i).getMyDescription();
+					data[i][5] = list.get(i).getMyStatus();	
+				}
 				pnlContent.removeAll();
-				pnlContent.add(pnlDelete);
+				table = new JTable(data, columnNames);
+				table.getModel().addTableModelListener(this);
+				scrollPane = new JScrollPane(table);
+//				btnSignUp.setText("Cancel");
+				
+				pnlContent.removeAll();
+				
+				// panel content/cancel not getting made.............................................
+				
+//				pnlContent.add(pnlCancel);
 				pnlContent.revalidate();
-				this.repaint();			
+				this.repaint();
+				pnlContent.add(scrollPane);
+				pnlContent.revalidate();
+				this.repaint();
+				
+//				pnlContent.removeAll();
+//				pnlContent.add(pnlDelete);
+//				pnlContent.revalidate();
+//				this.repaint();			
 			} else if (e.getSource() == btnDeleteJob) {
 				pnlContent.removeAll();
 				pnlContent.add(pnlDelete);

@@ -22,7 +22,7 @@ public class UrbanParkUser {
       "jdbc:mariadb://localhost:3306/GroupProjectDB";
    
 	static final String DB_USER = "root";
-	static final String DB_PASS = "1234";
+	static final String DB_PASS = "";
 	private List<VolunteerUser> list;
 	
 	Connection conn;

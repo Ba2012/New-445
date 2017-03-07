@@ -70,7 +70,7 @@ public class LoginUIMain {
     		
     	} else if (l.isVolunteer()) {
     		// display volunteer type of database
-    		displayVolDatabase(l.myVolUser);
+    		displayVolDatabase(Login.myVolUser);
     	}       			
     }
 	

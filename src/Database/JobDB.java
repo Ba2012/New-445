@@ -18,7 +18,7 @@ public class JobDB {
 	static final String DB_URL = "jdbc:mariadb://localhost:3306/GroupProjectDB";
 
 	static final String DB_USER = "root";
-	static final String DB_PASS = "1234";
+	static final String DB_PASS = "";
 
 	// private static String userName = "root";//"ba2012"; //Change to yours
 	// private static String password = "1234"; //piabMect";

@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,7 +68,11 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 		private JLabel[] deleteLabel = new JLabel[3];
 		private JTextField[] deleteField = new JTextField[3];
 		private JButton btnDeleteJob;
-		private JButton pnlCancel;
+		
+		private JPanel pnlCancel;
+		private JLabel lbblName;;
+		private JTextField txxfName;
+		private JButton btnCancel;
 		
 		/**
 		 * Creates the frame and components and launches the GUI.
@@ -155,8 +158,6 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 			
 			add(pnlContent, BorderLayout.CENTER);
 			
-			
-			
 			//Search Panel
 			pnlSearch = new JPanel();
 			lblName = new JLabel("Enter Job ID: ");
@@ -166,6 +167,16 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 			pnlSearch.add(lblName);
 			pnlSearch.add(txfName);
 			pnlSearch.add(btnSignUp);
+			
+			//Cancel Job Panel
+			pnlCancel = new JPanel();
+			lbblName = new JLabel("Enter Job ID: ");
+			txxfName = new JTextField(5);
+			btnCancel = new JButton("Cancel Job");
+			btnCancel.addActionListener(this);
+			pnlCancel.add(lbblName);
+			pnlCancel.add(txxfName);
+			pnlCancel.add(btnCancel);
 			
 			//Add Panel
 			pnlAdd = new JPanel();
@@ -224,7 +235,6 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 				table = new JTable(data, columnNames);
 				table.getModel().addTableModelListener(this);
 				scrollPane = new JScrollPane(table);
-//				btnSearch.setText("Sign Up");
 				pnlContent.removeAll();
 				pnlContent.add(pnlSearch);
 				pnlContent.revalidate();
@@ -281,23 +291,17 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 				table = new JTable(data, columnNames);
 				table.getModel().addTableModelListener(this);
 				scrollPane = new JScrollPane(table);
-//				btnSignUp.setText("Cancel");
-				
 				pnlContent.removeAll();
 				
-				// panel content/cancel not getting made.............................................
+				// Put SQL QUERY somewhere in here
+				// We have to output a list of job in GUI that they are signed up for instead of the a list of Urban Parks jobs
 				
-//				pnlContent.add(pnlCancel);
+				pnlContent.add(pnlCancel);
 				pnlContent.revalidate();
 				this.repaint();
 				pnlContent.add(scrollPane);
 				pnlContent.revalidate();
-				this.repaint();
-				
-//				pnlContent.removeAll();
-//				pnlContent.add(pnlDelete);
-//				pnlContent.revalidate();
-//				this.repaint();			
+				this.repaint();		
 			} else if (e.getSource() == btnDeleteJob) {
 				pnlContent.removeAll();
 				pnlContent.add(pnlDelete);

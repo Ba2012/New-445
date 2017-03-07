@@ -71,7 +71,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 		 * Creates the frame and components and launches the GUI.
 		 */
 		public VolunteerView() {
-			super("Jobs");
+			super("Volunteer");
 			
 			db = new JobUserDB();
 			try

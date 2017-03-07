@@ -21,7 +21,7 @@ static final String JDBC_DRIVER =
 	      "jdbc:mariadb://localhost:3306/GroupProjectDB";
 	   
 		static final String DB_USER = "root";
-		static final String DB_PASS = "";
+		static final String DB_PASS = "1234";
 		
 //	private static String userName = "root";//"ba2012"; //Change to yours
 //	private static String password = "1234"; //piabMect";
@@ -50,8 +50,8 @@ static final String JDBC_DRIVER =
 			createConnection();
 		}
 		Statement stmt = null;
-		String query = "select jobId, parkId, PUserName, jobName, jobDescription, status,"
-				+ "from GroupProjectDB.VolunteerJobs ";
+		String query = "select jobId, parkId, pUserName, name, description, status "
+				+ "from GroupProjectDB.Jobs; ";
 
 		list = new ArrayList<JobUser>();
 		try {
@@ -60,9 +60,9 @@ static final String JDBC_DRIVER =
 			while (rs.next()) {
 				int jobId = rs.getInt("jobId");
 				int parkId = rs.getInt("parkId");
-				String PUserName = rs.getString("PUserName");
-				String jobName = rs.getString("jobName");
-				String jobDescription = rs.getString("myDescription");
+				String PUserName = rs.getString("pUserName");
+				String jobName = rs.getString("name");
+				String jobDescription = rs.getString("description");
 				String status = rs.getString("status");
 				
 				JobUser user = new JobUser(jobId, parkId, PUserName, jobName, jobDescription, status);

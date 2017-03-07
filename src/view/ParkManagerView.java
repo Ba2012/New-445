@@ -85,7 +85,7 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 		 * Creates the frame and components and launches the GUI.
 		 */
 		public ParkManagerView() {
-			super("Volunteers");
+			super("Park Manager");
 			
 			volunteerDB = new VolunteerUserDB();
 			jobDB = new JobDB();
@@ -122,6 +122,8 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 		 */
 		private void createComponents()
 		{
+			volunteerDB = new VolunteerUserDB();
+			jobDB = new JobDB();
 			pnlButtons = new JPanel();
 			btnList = new JButton("Volunteer List");
 			btnList.addActionListener(this);

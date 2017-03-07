@@ -36,7 +36,7 @@ public class LoginUIMain {
 	 *
 	 */
 	public static void displayDatabase() {
-		TestGUI testGUI = new TestGUI();
+		ParkManagerView testGUI = new ParkManagerView();
 		testGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		testGUI.setLocationRelativeTo(loginframe);
 		testGUI.setIconImage(image.getImage());

@@ -20,7 +20,7 @@ public class ParkDB {
 		      "jdbc:mariadb://localhost:3306/GroupProjectDB";
 		   
 			static final String DB_USER = "root";
-			static final String DB_PASS = "";
+			static final String DB_PASS = "1234";
 			
 //		private static String userName = "root";//"ba2012"; //Change to yours
 //		private static String password = "1234"; //piabMect";

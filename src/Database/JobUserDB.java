@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.JobUser;
+import model.VolunteerUser;
 
 public class JobUserDB {
 
@@ -99,19 +100,15 @@ static final String JDBC_DRIVER =
 
 	/**
 	 * Adds a new user to the table.
-	 * @param user 
+	 * @param theJob 
 	 */
-	public void addJob(JobUser user) {
-		String sql = "insert into GroupProjectDB.VolunteerJobs values " + "(?, ?, ?, ?, ?, ?, ?, ?, ?); ";
+	public void addJob(JobUser theJob, VolunteerUser theVol) {
+		String sql = "insert into GroupProjectDB.VolunteerJoinJob values (?, ?); ";
 		PreparedStatement preparedStatement = null;			
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setInt(1, user.getMyJobId());
-			preparedStatement.setInt(2, user.getParkId());
-			preparedStatement.setString(4, user.getPUserName());
-			preparedStatement.setString(3, user.getMyName());
-			preparedStatement.setString(5, user.getMyDescription());
-			preparedStatement.setString(6, user.getMyStatus());
+			preparedStatement.setInt(1, theJob.getMyJobId());
+			preparedStatement.setInt(2, theVol.getMyUserId());			
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e);

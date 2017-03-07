@@ -11,7 +11,7 @@ public class Login {
 	private static boolean isManager;
 	
 	private static boolean isVolunteer;
-	public static VolunteerUser myVolUser;
+	public VolunteerUser myVolUser;
 	public ParkManagerUser myPMUser;
 	public static VolunteerUserDB myVDB;
 	

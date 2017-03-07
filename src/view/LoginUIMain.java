@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 
 import authentication.Login;
 import authentication.LoginDialog;
+import model.VolunteerUser;
 
 public class LoginUIMain {
 
@@ -45,8 +46,8 @@ public class LoginUIMain {
 	/** 
 	 * Displays the volunteer GUI.
 	 */
-	public static void displayVolDatabase() {
-		VolunteerView vv = new VolunteerView();
+	public static void displayVolDatabase(VolunteerUser vol) {
+		VolunteerView vv = new VolunteerView(vol);
 		vv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vv.setLocationRelativeTo(loginframe);
 		vv.setIconImage(image.getImage());
@@ -69,7 +70,7 @@ public class LoginUIMain {
     		
     	} else if (l.isVolunteer()) {
     		// display volunteer type of database
-    		displayVolDatabase();
+    		displayVolDatabase(l.myVolUser);
     	}       			
     }
 	

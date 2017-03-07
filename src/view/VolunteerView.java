@@ -22,6 +22,7 @@ import javax.swing.table.TableModel;
 
 import Database.JobUserDB;
 import model.JobUser;
+import model.VolunteerUser;
 
 public class VolunteerView extends JFrame implements ActionListener, TableModelListener {
 
@@ -42,6 +43,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 		private JPanel pnlButtons, pnlContent;
 		private JobUserDB db;
 		private List<JobUser> list;
+		private VolunteerUser myVol;
 		private String[] columnNames = {"Job ID",
 	            "Park ID",
 	            "Park UserName",
@@ -70,10 +72,12 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 		/**
 		 * Creates the frame and components and launches the GUI.
 		 */
-		public VolunteerView() {
+		public VolunteerView(VolunteerUser theVolunteer) {
 			super("Volunteer");
 			
 			db = new JobUserDB();
+			myVol = new VolunteerUser();
+			myVol = theVolunteer;
 			try
 			{
 				list = db.getJobs();
@@ -256,9 +260,9 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 				}
 			} else if (e.getSource() == btnAddJob) {
 				Random rd = new Random();
-				JobUser user = new JobUser(Math.abs(rd.nextInt(1000)), Integer.parseInt(txfField[0].getText())
+				JobUser job = new JobUser(Math.abs(rd.nextInt(1000)), Integer.parseInt(txfField[0].getText())
 						,txfField[1].getText(), txfField[2].getText(), txfField[3].getText(), txfField[4].getText());
-				db.addJob(user);
+				db.addJob(job, myVol);
 				JOptionPane.showMessageDialog(null, "Added Successfully!");
 				for (int i=0; i<txfField.length; i++) {
 					txfField[i].setText("");

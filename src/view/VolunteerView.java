@@ -124,9 +124,9 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 			//List Panel
 			pnlContent = new JPanel();
 			table = new JTable(data, columnNames);
-			scrollPane = new JScrollPane(table);
-			pnlContent.add(scrollPane);
-			table.getModel().addTableModelListener(this);
+//			scrollPane = new JScrollPane(table);
+//			pnlContent.add(scrollPane);
+//			table.getModel().addTableModelListener(this);
 			
 			//Delete panel
 			pnlDelete = new JPanel();
@@ -152,9 +152,9 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 			
 			//Search Panel
 			pnlSearch = new JPanel();
-			lblName = new JLabel("Enter Job Name: ");
+			lblName = new JLabel("Enter Job ID: ");
 			txfName = new JTextField(25);
-			btnFNameSearch = new JButton("Search");
+			btnFNameSearch = new JButton("Sign Up");
 			btnFNameSearch.addActionListener(this);
 			pnlSearch.add(lblName);
 			pnlSearch.add(txfName);
@@ -217,12 +217,16 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 				table = new JTable(data, columnNames);
 				table.getModel().addTableModelListener(this);
 				scrollPane = new JScrollPane(table);
+//				btnSearch.setText("Sign Up");
+				pnlContent.removeAll();
+				pnlContent.add(pnlSearch);
+				pnlContent.revalidate();
+				this.repaint();
 				pnlContent.add(scrollPane);
 				pnlContent.revalidate();
 				this.repaint();
 				
 			} else if (e.getSource() == btnSearch) {
-				btnSearch.setText("Sign Up");
 				pnlContent.removeAll();
 				pnlContent.add(pnlSearch);
 				pnlContent.revalidate();

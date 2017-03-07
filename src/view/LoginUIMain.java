@@ -33,6 +33,7 @@ public class LoginUIMain {
 	
 	/**
 	 * Displays the Park manager GUI.
+	 *
 	 */
 	public static void displayDatabase() {
 		TestGUI testGUI = new TestGUI();

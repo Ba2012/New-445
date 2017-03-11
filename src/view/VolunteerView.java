@@ -21,6 +21,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 import Database.JobUserDB;
+import authentication.LoginDialog;
 import model.JobUser;
 import model.VolunteerUser;
 
@@ -74,6 +75,10 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 		private JTextField txxfName;
 		private JButton btnCancel;
 		
+		private JPanel pnlLogout;
+		private JLabel labblName;;
+		private JButton btnLogout;
+		
 		/**
 		 * Creates the frame and components and launches the GUI.
 		 */
@@ -125,9 +130,13 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 			btnDelete = new JButton("View/Cancel Job");
 			btnDelete.addActionListener(this);
 			
+			btnLogout = new JButton("Logout");
+			btnLogout.addActionListener(this);
+			
 			pnlButtons.add(btnView );
 //			pnlButtons.add(btnSearch);
 			pnlButtons.add(btnDelete);
+			pnlButtons.add(btnLogout);
 			add(pnlButtons, BorderLayout.NORTH);
 			
 			//List Panel
@@ -318,6 +327,8 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 					e1.printStackTrace();
 				}
 				
+			} else if (e.getSource() == btnLogout) {
+				this.dispose();
 			}
 			
 		}

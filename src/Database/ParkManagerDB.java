@@ -25,8 +25,8 @@ import model.ParkManagerUser;
 		      "jdbc:mariadb://localhost:3306/GroupProjectDB";
 		   
 			static final String DB_USER = "root";
-//			static final String DB_PASS = "";
-			static final String DB_PASS = "1234";
+			static final String DB_PASS = "";
+//			static final String DB_PASS = "1234";
 		private static Connection conn;
 		private List<ParkManagerUser> list;
 		private List<Jobs> jobList;

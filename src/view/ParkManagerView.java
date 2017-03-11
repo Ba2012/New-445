@@ -286,7 +286,9 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 				this.repaint();
 				
 			} else if (e.getSource() == btnSearch) {
+				System.out.println("SEARCH");
 				pnlContent.removeAll();
+				
 				pnlContent.add(pnlSearch);
 				pnlContent.revalidate();
 				this.repaint();
@@ -297,6 +299,9 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 				this.repaint();
 				
 			} else if (e.getSource() == btnFNameSearch) {
+				System.out.println("Search name");
+				pnlContent.removeAll();
+				this.repaint();
 				String name = txfName.getText();
 				if (name.length() > 0) {
 					list = volunteerDB.getUser(name);
@@ -362,9 +367,7 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 				
 				jobDB.addJob(newJob);
 				JOptionPane.showMessageDialog(null, "Job added Successfully!");
-//				for(int i = 0; i<jobsField.length; i++) {
-//					jobsField[i].setText("");
-//				}
+
 			}
 			
 		}

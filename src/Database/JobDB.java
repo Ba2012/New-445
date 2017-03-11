@@ -10,6 +10,7 @@ import java.util.List;
 
 import Parks.Jobs.Jobs;
 import model.JobUser;
+import model.VolunteerUser;
 
 public class JobDB {
 
@@ -106,6 +107,10 @@ public class JobDB {
 			System.out.println(e);
 			e.printStackTrace();
 		} 
+	}
+	
+	public void removeJob(VolunteerUser myVol) {
+		
 	}
 	
 }

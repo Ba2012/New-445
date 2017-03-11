@@ -90,6 +90,8 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 		private JLabel[] jobList = new JLabel[6];
 		private JTextField[] jobListField = new JTextField[6];
 		
+		private JButton btnLogout;
+		
 		/**
 		 * Creates the frame and components and launches the GUI.
 		 */
@@ -122,7 +124,7 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 			}
 			createComponents();
 			setVisible(true);
-			setSize(700, 500);
+			setSize(800, 500);
 		}
 	    
 		/**
@@ -149,11 +151,15 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 			btnJob = new JButton("Add Job");
 			btnJob.addActionListener(this);
 			
+			btnLogout = new JButton("Logout");
+			btnLogout.addActionListener(this);
+			
 			pnlButtons.add(btnList);
 			pnlButtons.add(btnSearch);
 			pnlButtons.add(btnAddVol);
 			pnlButtons.add(btnDelete);
 			pnlButtons.add(btnJob);
+			pnlButtons.add(btnLogout);
 			add(pnlButtons, BorderLayout.NORTH);
 			
 			//List Panel
@@ -368,6 +374,12 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 				jobDB.addJob(newJob);
 				JOptionPane.showMessageDialog(null, "Job added Successfully!");
 
+
+//				for(int i = 0; i<jobsField.length; i++) {
+//					jobsField[i].setText("");
+//				}
+			} else if (e.getSource() == btnLogout) {
+				this.dispose();
 			}
 			
 		}

@@ -22,8 +22,8 @@ static final String JDBC_DRIVER =
 	      "jdbc:mariadb://localhost:3306/GroupProjectDB";
 	   
 		static final String DB_USER = "root";
-		static final String DB_PASS = "";
-//		static final String DB_PASS = "1234";
+//		static final String DB_PASS = "";
+		static final String DB_PASS = "1234";
 	private static Connection conn;
 	private List<JobUser> list;
 
@@ -158,7 +158,78 @@ static final String JDBC_DRIVER =
 			e.printStackTrace();
 		} 
 	}
+	public List<JobUser> getJobsPM(int managersParkID) throws SQLException {
+		if (conn == null) {
+			createConnection();
+		}
+		Statement stmt = null;
+		String query = "select jobId, PM.parkId, PM.pUserName, J.name, description, status "
+				+ "from GroupProjectDB.Jobs J"
+				+ " join GroupProjectDB.ParkManager PM"
+				+ " on J.parkId = PM.parkId"
+				+ "where PM.parkId = "+ managersParkID + ";";
+
+		list = new ArrayList<JobUser>();
+		try {
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int jobId = rs.getInt("jobId");
+				int parkId = rs.getInt("parkId");
+				String PUserName = rs.getString("pUserName");
+				String jobName = rs.getString("name");
+				String jobDescription = rs.getString("description");
+				String status = rs.getString("status");
+				
+				JobUser user = new JobUser(jobId, parkId, PUserName, jobName, jobDescription, status);
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+		}
+		return list;
+		
+	}
 	
+	public List<JobUser> getJobsVol(int parkId) throws SQLException{
+		if (conn == null) {
+			createConnection();
+		}
+		Statement stmt = null;
+		String query = "select parkId, J.pUserName name as Park Manager, J.name, description"
+				+ "from GroupProjectDB.VolunteerJoinJob J"
+				+ "where J.parkId = "+ parkId + ";";
+
+		list = new ArrayList<JobUser>();
+		try {
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int parkIds = rs.getInt("parkId");
+				String PUserName = rs.getString("pUserName");
+				String jobName = rs.getString("Park Manager");
+				String jobDescription = rs.getString("description");
+				
+				JobUser user = new JobUser(0, parkIds, PUserName, jobName, jobDescription, "null");
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+		}
+		
+		return list;
+	}
+	
+
+
 }
 
 

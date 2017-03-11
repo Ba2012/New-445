@@ -18,6 +18,36 @@ public class ParkManagerUser {
 		
 	}
 	
+	public ParkManagerUser(ParkManagerUser thePM) {
+		myUserId = thePM.getUserId();
+		myParkId = thePM.getParId();
+		myPassword = thePM.getPw();
+		myName = thePM.myName;
+	}
+
+	public ParkManagerUser() {
+		setMyName(myName);
+		setMyParkId(myParkId);
+		setMyPassword(myPassword);
+		setMyUserId(myUserId);
+	}
+
+	public void setMyUserId(String myUserId) {
+		this.myUserId = myUserId;
+	}
+
+	public void setMyParkId(int myParkId) {
+		this.myParkId = myParkId;
+	}
+
+	public void setMyPassword(String myPassword) {
+		this.myPassword = myPassword;
+	}
+
+	public void setMyName(String myName) {
+		this.myName = myName;
+	}
+
 	public String getUserId() {
 		return myUserId;
 	}

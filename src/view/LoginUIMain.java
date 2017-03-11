@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 
 import authentication.Login;
 import authentication.LoginDialog;
+import model.ParkManagerUser;
 import model.VolunteerUser;
 
 public class LoginUIMain {
@@ -36,8 +37,8 @@ public class LoginUIMain {
 	 * Displays the Park manager GUI.
 	 *
 	 */
-	public static void displayDatabase() {
-		ParkManagerView testGUI = new ParkManagerView();
+	public static void displayDatabase(ParkManagerUser myPM) {
+		ParkManagerView testGUI = new ParkManagerView(myPM);
 		testGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		testGUI.setLocationRelativeTo(loginframe);
 		testGUI.setIconImage(image.getImage());
@@ -66,7 +67,7 @@ public class LoginUIMain {
 
     	if (l.isManager()) {
     		// display park manager type of database
-    		displayDatabase();
+    		displayDatabase(Login.myPMUser);
     		
     	} else if (l.isVolunteer()) {
     		// display volunteer type of database

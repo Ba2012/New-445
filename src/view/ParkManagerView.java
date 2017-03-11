@@ -26,6 +26,7 @@ import Database.VolunteerUserDB;
 import Parks.Jobs.Jobs;
 import authentication.Login;
 import authentication.LoginDialog;
+import model.ParkManagerUser;
 import model.VolunteerUser;
 
 public class ParkManagerView extends JFrame implements ActionListener, TableModelListener {
@@ -44,6 +45,7 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 		private JButton btnList, btnSearch, btnAddVol, btnDelete, btnJob, btnListJobs;
 		private JPanel pnlButtons, pnlContent;
 		private VolunteerUserDB volunteerDB;
+		private static ParkManagerUser myPM;
 		private JobDB jobDB;
 		private List<Jobs> myJobs;
 		private List<VolunteerUser> list;
@@ -95,10 +97,11 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 		/**
 		 * Creates the frame and components and launches the GUI.
 		 */
-		public ParkManagerView() {
+		public ParkManagerView(ParkManagerUser thePM) {
 			super("Park Manager");
 			
 			volunteerDB = new VolunteerUserDB();
+			myPM = new ParkManagerUser(thePM);
 			jobDB = new JobDB();
 			try
 			{
@@ -254,7 +257,7 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 		}
 		
 		public static void displayDatabase() {
-			ParkManagerView testGUI = new ParkManagerView();
+			ParkManagerView testGUI = new ParkManagerView(myPM);
 			testGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 

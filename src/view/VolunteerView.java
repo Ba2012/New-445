@@ -270,9 +270,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 					this.repaint();
 				}
 			} else if (e.getSource() == btnAddJob) {
-				int jobId = Integer.parseInt(txfField[0].getText());
-//				JobUser job =  Integer.parseInt(txfField[0].getText());
-						
+				int jobId = Integer.parseInt(txfField[0].getText());						
 				db.addJob(jobId, myVol);
 				JOptionPane.showMessageDialog(null, "Added Successfully!");
 				for (int i=0; i<txfField.length; i++) {

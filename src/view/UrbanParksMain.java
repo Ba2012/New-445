@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 
 import authentication.Login;
 import authentication.LoginDialog;
-import job.ParkJobsUI;
+//import job.ParkJobsUI;
 
 
 public class UrbanParksMain {
@@ -98,7 +98,7 @@ public class UrbanParksMain {
     public static void jobFrameDisplay() throws ClassNotFoundException, SQLException {
     	jobFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	jobFrame.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER));
-    	jobFrame.getContentPane().add(new ParkJobsUI());
+//    	jobFrame.getContentPane().add(new ParkJobsUI());
     	jobFrame.setSize(600, 280);
     	jobFrame.pack();
     	jobFrame.setVisible(true);

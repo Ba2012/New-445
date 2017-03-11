@@ -75,8 +75,6 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 		private JTextField txxfName;
 		private JButton btnCancel;
 		
-		private JPanel pnlLogout;
-		private JLabel labblName;;
 		private JButton btnLogout;
 		
 		/**

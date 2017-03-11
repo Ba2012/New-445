@@ -263,10 +263,10 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 					this.repaint();
 				}
 			} else if (e.getSource() == btnAddJob) {
-				Random rd = new Random();
-				JobUser job = new JobUser(Math.abs(rd.nextInt(1000)), Integer.parseInt(txfField[0].getText())
-						,txfField[1].getText(), txfField[2].getText(), txfField[3].getText(), txfField[4].getText());
-//				db.addJob(job, myVol);
+				int jobId = Integer.parseInt(txfField[0].getText());
+//				JobUser job =  Integer.parseInt(txfField[0].getText());
+						
+				db.addJob(jobId, myVol);
 				JOptionPane.showMessageDialog(null, "Added Successfully!");
 				for (int i=0; i<txfField.length; i++) {
 					txfField[i].setText("");
@@ -333,7 +333,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 	        String columnName = model.getColumnName(column);
 	        Object data = model.getValueAt(row, column);
 	        
-	        db.updateMovie(row, columnName, data);
+	        db.updateJobs(row, columnName, data);
 			
 		}
 		

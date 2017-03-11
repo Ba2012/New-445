@@ -129,7 +129,7 @@ public class VolunteerUserDB {
 		 * @param columnName attribute to modify
 		 * @param data value to supply
 		 */
-		public void updateMovie(int row, String columnName, Object data) {			
+		public void updateUser(int row, String columnName, Object data) {			
 			VolunteerUser user = list.get(row);
 			int id = user.getMyUserId();
 			String fname = user.getMyFName();

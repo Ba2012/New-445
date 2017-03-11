@@ -315,7 +315,7 @@ public class TestGUI extends JFrame implements ActionListener, TableModelListene
 	        String columnName = model.getColumnName(column);
 	        Object data = model.getValueAt(row, column);
 	        
-	        db.updateMovie(row, columnName, data);
+	        db.updateUser(row, columnName, data);
 			
 		}
 		

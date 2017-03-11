@@ -45,6 +45,7 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 		private JPanel pnlButtons, pnlContent;
 		private VolunteerUserDB volunteerDB;
 		private JobDB jobDB;
+		private List<Jobs> myJobs;
 		private List<VolunteerUser> list;
 		private String[] columnNames = {"userId",
 	            "First Name",
@@ -55,6 +56,12 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 	            "Zipcode",
 	            "Email",
 	            "Phone Number"};
+		private String[] jobColumns = {"JobId",
+				"ParkId",
+				"Park Manager",
+				"Job Name",
+				"Job Description",
+				"Status"};
 		
 		private Object[][] data;
 		private JTable table;
@@ -79,7 +86,9 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 		private JTextField[] deleteField = new JTextField[3];
 		private JButton btnDeleteVolunteer;
 		
-		
+		private JPanel pnlListJobs;
+		private JLabel[] jobList = new JLabel[6];
+		private JTextField[] jobListField = new JTextField[6];
 		
 		/**
 		 * Creates the frame and components and launches the GUI.
@@ -371,7 +380,7 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 	        String columnName = model.getColumnName(column);
 	        Object data = model.getValueAt(row, column);
 	        
-	        volunteerDB.updateMovie(row, columnName, data);
+	        volunteerDB.updateUser(row, columnName, data);
 			
 		}
 		

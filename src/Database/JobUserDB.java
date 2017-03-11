@@ -119,7 +119,7 @@ static final String JDBC_DRIVER =
 	 * @param columnName attribute to modify
 	 * @param data value to supply
 	 */
-	public void updateMovie(int row, String columnName, Object data) {			
+	public void updateJobs(int row, String columnName, Object data) {			
 		JobUser user = list.get(row);
 		int id = user.getMyJobId();
 		String jobName = user.getMyName();

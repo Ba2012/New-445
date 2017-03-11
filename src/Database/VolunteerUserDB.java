@@ -93,6 +93,8 @@ public class VolunteerUserDB {
 			for (VolunteerUser user : list) {
 				if (user.getMyFName().toLowerCase().contains(fname.toLowerCase())) {
 					filterList.add(user);
+				} else if (user.getMyLName().toLowerCase().contains(fname.toLowerCase())) {
+					filterList.add(user);
 				}
 			}
 			return filterList;

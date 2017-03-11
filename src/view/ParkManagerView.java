@@ -374,10 +374,6 @@ public class ParkManagerView extends JFrame implements ActionListener, TableMode
 				jobDB.addJob(newJob);
 				JOptionPane.showMessageDialog(null, "Job added Successfully!");
 
-
-//				for(int i = 0; i<jobsField.length; i++) {
-//					jobsField[i].setText("");
-//				}
 			} else if (e.getSource() == btnLogout) {
 				this.dispose();
 			}

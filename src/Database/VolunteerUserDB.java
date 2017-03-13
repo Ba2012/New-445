@@ -135,7 +135,7 @@ public class VolunteerUserDB {
 			VolunteerUser user = list.get(row);
 			int id = user.getMyUserId();
 			String fname = user.getMyFName();
-			String sql = "update GroupProjectDB.volunteer set " + columnName + " = ?  where userId= ? and lastName = ? ";
+			String sql = "update GroupProjectDB.volunteer set " + columnName + " = ?  where userId= ? and lastName = ?; ";
 			System.out.println(sql);
 			PreparedStatement preparedStatement = null;
 			try {
@@ -171,7 +171,32 @@ public class VolunteerUserDB {
 			} 
 		}
 		
-		
+		public boolean canSignUp(VolunteerUser theVol, int theJob) throws SQLException {
+			int queryCounter = 0;
+			boolean canSign = true;
+			if (conn == null) {
+				createConnection();
+			}
+			Statement stmt = null;
+			String sql = "SELECT * from GroupProjectDB.VolunteerJoinJob  where userId = "+theVol.getMyUserId()+" AND jobId ="+theJob+";";
+			try {
+				stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				while(rs.next()){
+					queryCounter++;
+				}
+				
+				if(queryCounter>0) {
+					canSign = false;
+				}
+				
+			} catch (SQLException e) {
+				System.out.println(e);
+				e.printStackTrace();
+			} 
+			System.out.println(canSign);
+			return canSign;
+		}
 		
 	}
 

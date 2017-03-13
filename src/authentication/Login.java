@@ -32,7 +32,12 @@ public class Login {
         	isManager = false;
         	isVolunteer = true;
         	myVolUser = new VolunteerUser();
-        	myVolUser.setMyUserId(1);
+        	if (username.equals("John")) {
+        		myVolUser.setMyUserId(1);
+        	} else {
+        		myVolUser.setMyUserId(2);
+        	}
+        	
         	return true;
         }
         return false;

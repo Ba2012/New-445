@@ -76,6 +76,40 @@ static final String JDBC_DRIVER =
 		}
 		return list;
 	}
+	
+	public List<JobUser> getAllJobsByVol(int volId) throws SQLException {
+		if (conn == null) {
+			createConnection();
+		}
+		Statement stmt = null;
+		String query = "select J.jobId, parkId, pUserName, name, description "
+				+ "from GroupProjectDB.Jobs J RIGHT OUTER JOIN GroupProjectDB.VolunteerJoinJob V "
+				+ "ON J.jobId=V.jobId "
+				+ "WHERE V.userId="+volId+"; ";
+
+		list = new ArrayList<JobUser>();
+		try {
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int jobId = rs.getInt("jobId");
+				int parkId = rs.getInt("parkId");
+				String PUserName = rs.getString("pUserName");
+				String jobName = rs.getString("name");
+				String jobDescription = rs.getString("description");
+				
+				JobUser user = new JobUser(jobId, parkId, PUserName, jobName, jobDescription,"");
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+		}
+		return list;
+	}
 
 	/**
 	 * @param jobName
@@ -152,15 +186,14 @@ static final String JDBC_DRIVER =
 			e.printStackTrace();
 		} 
 	}
-	public void deleteJob(int jobId,String jobName, String jobDescription) throws SQLException {			
-		String sql = "delete from GroupProjectDB.VolunteerJobs where jobId = ? and jobName = ? and jobDescription = ?";
-		PreparedStatement preparedStatement = null;
+	public void deleteJob(int jobId) throws SQLException {			
+		String sql = "delete from GroupProjectDB.Jobs where jobId = "+jobId+";";
+		String sql2 = "delete from GroupprojectDB.VolunteerJoinJob where jobId= "+jobId+";";
+		Statement stmt = null;
 		try {
-			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setInt(1, jobId);
-			preparedStatement.setString(2, jobName);
-			preparedStatement.setString(3, jobDescription);
-			preparedStatement.executeUpdate();
+			stmt = conn.createStatement();
+			stmt.executeQuery(sql);
+			stmt.executeQuery(sql2);
 		} catch (SQLException e) {
 			System.out.println(e);
 			e.printStackTrace();
@@ -203,14 +236,14 @@ static final String JDBC_DRIVER =
 		
 	}
 	
-	public List<JobUser> getJobsVol(int parkId) throws SQLException{
+	public List<JobUser> getJobsVol(int jobId, int userId) throws SQLException{
 		if (conn == null) {
 			createConnection();
 		}
 		Statement stmt = null;
 		String query = "select parkId, J.pUserName name as Park Manager, J.name, description"
 				+ "from GroupProjectDB.VolunteerJoinJob J"
-				+ "where J.parkId = "+ parkId + ";";
+				+ "where J.jobId = "+ jobId + " and J.userId = " + userId + ";";
 
 		list = new ArrayList<JobUser>();
 		try {
@@ -263,6 +296,21 @@ static final String JDBC_DRIVER =
 			e.printStackTrace();
 		} 
 	}
+
+	public void deleteMyJob(int myUserId, int num) {
+		String sql2 = "delete from GroupprojectDB.VolunteerJoinJob where jobId= "+num+" and userId = "+myUserId + " ;";
+		Statement stmt = null;
+		try {
+			stmt = conn.createStatement();
+
+			stmt.executeQuery(sql2);
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} 
+	}
+		
+	
 	
 
 

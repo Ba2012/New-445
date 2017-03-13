@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Random;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,25 +17,20 @@ import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
-
 import Database.JobUserDB;
-import authentication.LoginDialog;
+import Database.VolunteerUserDB;
 import model.JobUser;
 import model.VolunteerUser;
 
 public class VolunteerView extends JFrame implements ActionListener, TableModelListener {
 
-	
-	// jobId, parkId, pUserName, name, description, status
-	
-
-		
 		private static final long serialVersionUID = 1779520078061383929L;
 		private JButton btnView , btnSearch, btnAdd, btnDelete;
 		private JPanel pnlButtons, pnlContent;
 		private JobUserDB db;
 		private List<JobUser> list;
 		private VolunteerUser myVol;
+		private VolunteerUserDB theVOL;
 		private String[] columnNames = {"Job ID",
 	            "Park ID",
 	            "Park UserName",
@@ -66,8 +59,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 		private JPanel pnlCancel;
 		private JLabel lbblName;;
 		private JTextField txxfName;
-		private JButton btnCancel;
-		
+		private JButton btnCancel;		
 		private JButton btnLogout;
 		
 		/**
@@ -78,6 +70,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 			db = new JobUserDB();
 			myVol = new VolunteerUser();
 			myVol = theVolunteer;
+			theVOL = new VolunteerUserDB();
 			try
 			{
 				list = db.getJobs();
@@ -234,11 +227,22 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 				pnlContent.revalidate();
 				this.repaint();				
 			} else if (e.getSource() == btnSignUp) {
+				boolean canSign = false;
 				String name = txfName.getText();
 				if (name.length() > 0) {
 					int newInt = Integer.parseInt(txfName.getText());
-					// SQL QUERY
-					db.addJob(newInt, myVol);
+					// SQL QUERY to check if already signed up for that job
+					try {
+						canSign = theVOL.canSignUp(myVol, newInt);						
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					if(canSign) {
+						db.addJob(newInt, myVol);
+						JOptionPane.showMessageDialog(null, "Signed Up Successfully!");
+					} else{
+						JOptionPane.showMessageDialog(null, "You have already Signed Up For This Job");
+					}
 					pnlContent.removeAll();
 					table = new JTable(data, columnNames);
 					table.getModel().addTableModelListener(this);
@@ -256,7 +260,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 				}
 			} else if (e.getSource() == btnDelete) {
 				try {
-					list = db.getJobs();
+					list = db.getAllJobsByVol(myVol.getMyUserId());
 				} catch (SQLException e1) {					
 					e1.printStackTrace();
 				}
@@ -267,42 +271,32 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 					data[i][2] = list.get(i).getPUserName();
 					data[i][3] = list.get(i).getMyName();
 					data[i][4] = list.get(i).getMyDescription();
-					data[i][5] = list.get(i).getMyStatus();	
 				}
 				pnlContent.removeAll();
 				table = new JTable(data, columnNames);
 				table.getModel().addTableModelListener(this);
 				scrollPane = new JScrollPane(table);
 				pnlContent.removeAll();
-				
-				// Put SQL QUERY somewhere in here
-				// We have to output a list of job in GUI that they are signed up for instead of the a list of Urban Parks jobs
-				
 				pnlContent.add(pnlCancel);
 				pnlContent.revalidate();
 				this.repaint();
 				pnlContent.add(scrollPane);
 				pnlContent.revalidate();
 				this.repaint();		
-			} else if (e.getSource() == btnDeleteJob) {
-				pnlContent.removeAll();
+			
+			} else if (e.getSource() == btnCancel)  {
+				System.out.println("Delete");
+				int num = (Integer.parseInt(txxfName.getText()));
+				db.deleteMyJob(myVol.getMyUserId(), num);
+				JOptionPane.showMessageDialog(null, "Job "+num+ " Successfully Deleted!");
 				pnlContent.add(pnlDelete);
 				pnlContent.revalidate();				
 				this.repaint();
-				String jobName = deleteField[0].getText();
-				String jobDesc = deleteField[1].getText();
-				int id = Integer.parseInt(deleteField[2].getText());
-				try {
-					db.deleteUser(id, jobName, jobDesc);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}				
-			} else if (e.getSource() == btnLogout) {
+			}
+			else if (e.getSource() == btnLogout) {
 				this.dispose();
-			}		
+			}	
 		}
-
 		/**
 		 * Event handling for any cell being changed in the table.
 		 */
@@ -312,8 +306,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 	        int column = e.getColumn();
 	        TableModel model = (TableModel)e.getSource();
 	        String columnName = model.getColumnName(column);
-	        Object data = model.getValueAt(row, column);
-	        
+	        Object data = model.getValueAt(row, column);	        
 	        db.updateJobs(row, columnName, data);
 			
 		}

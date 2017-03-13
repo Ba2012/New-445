@@ -6,12 +6,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
-//import javax.sql.rowset.JdbcRowSet;
-
-//import com.sun.rowset.JdbcRowSetImpl;
 
 public class UrbanParkUser {
    
@@ -22,18 +16,14 @@ public class UrbanParkUser {
       "jdbc:mariadb://localhost:3306/GroupProjectDB";
    
 	static final String DB_USER = "root";
-	static final String DB_PASS = "";
-	private List<VolunteerUser> list;
-	
+	static final String DB_PASS = "";	
 	Connection conn;
 	ResultSet rs;
-
 	
 	public UrbanParkUser() throws SQLException, ClassNotFoundException {
 
 		conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 		System.out.println("Connection Established!");
-		// create a Statement from the connection
 		Statement statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		String sql = "DROP TABLE IF EXISTS USER";
 		statement.executeUpdate(sql);
@@ -58,44 +48,6 @@ public class UrbanParkUser {
 	}
    
 	
-//	public List<User> getUsers() throws SQLException {
-//		if (conn == null) {
-//			conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-//		}
-//		Statement stmt = null;
-//		String query = "select title, year, length, genre, studioName "
-//				+ "from ba2012.Movies ";
-//
-//		list = new ArrayList<User>();
-//		try {
-//			stmt = conn.createStatement();
-//			ResultSet rs = stmt.executeQuery(query);
-//			while (rs.next()) {
-//				int id = rs.getInt("userId");
-//				String fName = rs.getString("firstName");
-//				String lName = rs.getString("lastName");
-//				String streetAddress = rs.getString("street");
-//				String city = rs.getString("city");
-//				String state = rs.getString("state");
-//				int zip = rs.getInt("zipcode");
-//				String email = rs.getString("email");
-//				String phone = rs.getString("phone");
-//				
-//				
-//				User user = new User(id,fName,lName,streetAddress,city,state,zip,email,phone);
-//				list.add(user);
-//			}
-//		} catch (SQLException e) {
-//			System.out.println(e);
-//		} finally {
-//			if (stmt != null) {
-//				stmt.close();
-//			}
-//		}
-//		return list;
-//	}
-
-	
 	
 	public VolunteerUser create(VolunteerUser u) {
 		String sql = "insert into GroupProjectDB.user values " + "(?, ?, ?, ?, ?, ?, ?, ?, ?); ";
@@ -116,24 +68,15 @@ public class UrbanParkUser {
 			preparedStatement.executeUpdate();
 			rs = preparedStatement.executeQuery("SELECT * FROM User");
 
-//		} catch (SQLException ex) {
-//			try {
-////				((Connection) rs).rollback();
-//	            u = null;
-	        } catch (SQLException e) {
-	
+	        } catch (SQLException e) {	
 	        	e.printStackTrace();
-	        }
-	        	
-	    
+	        }		    
 	    return u;
 	}
 
 	public VolunteerUser update(VolunteerUser u) {
 		String sql = "update GroupProjectDB.user set value" + "(?, ?, ?, ?, ?, ?, ?, ?, ?); ";
-
-		PreparedStatement preparedStatement = null;
-		
+		PreparedStatement preparedStatement = null;		
 		try {
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setInt(1, u.getMyUserId());
@@ -148,30 +91,22 @@ public class UrbanParkUser {
 			preparedStatement.executeUpdate();
 			rs = preparedStatement.executeQuery("SELECT * FROM User");
 
-		} catch (SQLException ex) {
-		
+		} catch (SQLException ex) {		
 			ex.printStackTrace();
 		}
-		return u;
-		
+		return u;		
 	}
 
 	public void delete(VolunteerUser user) {
-
-		//list.remove(user);
-		String sql = "delete from GroupProjectDB.user where userId = ? ";
-		
-		PreparedStatement preparedStatement = null;
-		
+		String sql = "delete from GroupProjectDB.user where userId = ? ";		
+		PreparedStatement preparedStatement = null;		
 		try {
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setInt(1, user.getMyUserId());
-
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) { 
 			e.printStackTrace();
 		}
-
 	}
 
 	public VolunteerUser moveFirst() {
@@ -187,7 +122,6 @@ public class UrbanParkUser {
 			u.setMyZipcode(rs.getInt("Zipcode"));
 			u.setMyEmail(rs.getString("email"));
 			u.setMyPhone(rs.getString("phone"));
-
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -251,7 +185,7 @@ public class UrbanParkUser {
 		   u.setMyZipcode(rs.getInt("Zipcode"));
 		   u.setMyEmail(rs.getString("email"));
 		   u.setMyPhone(rs.getString("phone"));
-
+		   
 	   } catch (SQLException ex) {
 		   ex.printStackTrace();
 	   }
@@ -276,9 +210,4 @@ public class UrbanParkUser {
       }
       return u;
    }
-   
-//   // to close connection
-//   rs.close();
-//   st.close();
-//   conn.close();
 }

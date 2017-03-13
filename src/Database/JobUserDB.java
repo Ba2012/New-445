@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import Parks.Jobs.Jobs;
 import model.JobUser;
 import model.VolunteerUser;
 
@@ -112,13 +113,6 @@ static final String JDBC_DRIVER =
 			e.printStackTrace();
 		} 
 	}
-
-	/**
-	 * Modifies the movie information corresponding to the index in the list.
-	 * @param row index of the element in the list
-	 * @param columnName attribute to modify
-	 * @param data value to supply
-	 */
 	public void updateJobs(int row, String columnName, Object data) {			
 		JobUser user = list.get(row);
 		int id = user.getMyJobId();
@@ -145,6 +139,20 @@ static final String JDBC_DRIVER =
 	}
 	
 	public void deleteUser(int jobId,String jobName, String jobDescription) throws SQLException {			
+		String sql = "delete from GroupProjectDB.VolunteerJobs where jobId = ? and jobName = ? and jobDescription = ?";
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setInt(1, jobId);
+			preparedStatement.setString(2, jobName);
+			preparedStatement.setString(3, jobDescription);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} 
+	}
+	public void deleteJob(int jobId,String jobName, String jobDescription) throws SQLException {			
 		String sql = "delete from GroupProjectDB.VolunteerJobs where jobId = ? and jobName = ? and jobDescription = ?";
 		PreparedStatement preparedStatement = null;
 		try {
@@ -226,6 +234,34 @@ static final String JDBC_DRIVER =
 		}
 		
 		return list;
+	}
+
+	public void addManagerJob(Jobs theJob) {
+		if(conn==null){
+			try {
+				createConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		String sql = "insert into GroupProjectDB.Jobs values " 
+				+ "(?,?,?,?,?,?); ";
+		
+		PreparedStatement preparedStatement;
+		try{
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setInt(1, theJob.getMyJobId());
+			preparedStatement.setInt(2, theJob.getMyParkId());
+			preparedStatement.setString(3, theJob.getMyPUserName());
+			preparedStatement.setString(4,  theJob.getMyName());
+			preparedStatement.setString(5,  theJob.getMyDescription());
+			preparedStatement.setString(6,  theJob.getMyStatus());
+			preparedStatement.executeUpdate();
+			
+		} catch(SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} 
 	}
 	
 

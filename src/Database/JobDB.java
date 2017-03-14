@@ -11,7 +11,11 @@ import java.util.List;
 import Parks.Jobs.Jobs;
 import model.JobUser;
 import model.VolunteerUser;
-
+/**
+ * 
+ * @author John
+ *
+ */
 public class JobDB {
 
 	static final String JDBC_DRIVER = "com.mariadb.jdbc.Driver";

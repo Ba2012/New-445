@@ -11,7 +11,11 @@ package Database;
 	import java.util.List;
 	import model.VolunteerUser;
 	
-	
+/**
+ * 	
+ * @author Bryce
+ *
+ */
 public class VolunteerUserDB {
 
 

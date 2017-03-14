@@ -10,7 +10,11 @@ import javax.swing.border.*;
 
 //import view.UrbanParksMain;
 import view.LoginUIMain;
- 
+/**
+ * 
+ * @author John
+ *
+ */
 public class LoginDialog extends JDialog {
  
     /**

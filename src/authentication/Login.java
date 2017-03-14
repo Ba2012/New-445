@@ -5,7 +5,11 @@ import model.ParkManagerUser;
 import model.VolunteerUser;
 
 
-
+/**
+ * 
+ * @author John
+ *
+ */
 public class Login {
 	
 	private static boolean isManager;

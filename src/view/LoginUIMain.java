@@ -13,7 +13,11 @@ import authentication.Login;
 import authentication.LoginDialog;
 import model.ParkManagerUser;
 import model.VolunteerUser;
-
+/**
+ * 
+ * @author John
+ *
+ */
 public class LoginUIMain {
 
 	/**

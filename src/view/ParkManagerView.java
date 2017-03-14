@@ -507,7 +507,12 @@
 //
 //}
 package view;
-
+/**
+ * 
+ * @author John
+ * @author Bryce
+ *
+ */
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

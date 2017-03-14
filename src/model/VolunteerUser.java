@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * 
+ * @author Bryce
+ *
+ */
 public class VolunteerUser {
 	
 	private int myUserId;

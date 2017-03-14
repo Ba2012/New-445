@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * 
+ * @author John
+ *
+ */
 public class JobUser {
 	
 	private int myJobId;

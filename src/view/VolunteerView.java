@@ -21,7 +21,12 @@ import Database.JobUserDB;
 import Database.VolunteerUserDB;
 import model.JobUser;
 import model.VolunteerUser;
-
+/**
+ * 
+ * @author John
+ * @author Bryce
+ *
+ */
 public class VolunteerView extends JFrame implements ActionListener, TableModelListener {
 
 		private static final long serialVersionUID = 1779520078061383929L;
@@ -61,11 +66,6 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 		private JTextField txxfName;
 		private JButton btnCancel;		
 		private JButton btnLogout;
-		
-//		private JPanel pnlAddVol;
-//		private JLabel[] txfLabel = new JLabel[8];
-//		private JTextField[] txfField = new JTextField[8];
-//		private JButton btnAddVolunteer;
 		
 		/**
 		 * Creates the frame and components and launches the GUI.

@@ -55,7 +55,6 @@ public class UrbanParksMain {
     	
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER));
-		f.getContentPane().add(new UrbanParksUI());
 		f.setSize(600, 280);
 		f.pack();
 		f.setVisible(true);

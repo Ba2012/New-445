@@ -15,7 +15,11 @@ package Database;
 import Parks.Jobs.Jobs;
 import model.ParkManagerUser;
 
-	
+/**
+ * 	
+ * @author Bryce
+ *
+ */
 	public class ParkManagerDB {
 
 	static final String JDBC_DRIVER =

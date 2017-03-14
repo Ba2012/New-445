@@ -12,7 +12,11 @@ import java.util.List;
 import Parks.Jobs.Jobs;
 import model.JobUser;
 import model.VolunteerUser;
-
+/**
+ * 
+ * @author Bryce
+ *
+ */
 public class JobUserDB {
 
 

@@ -1,6 +1,10 @@
 package model;
 import java.util.Objects;
-
+/**
+ * 
+ * @author Bryce
+ *
+ */
 public class ParkManagerUser {
 
 	private String myUserId;

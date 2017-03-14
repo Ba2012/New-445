@@ -55,12 +55,17 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 		private JLabel[] deleteLabel = new JLabel[3];
 		private JTextField[] deleteField = new JTextField[3];
 		private JButton btnDeleteJob;
-		
+				
 		private JPanel pnlCancel;
 		private JLabel lbblName;;
 		private JTextField txxfName;
 		private JButton btnCancel;		
 		private JButton btnLogout;
+		
+//		private JPanel pnlAddVol;
+//		private JLabel[] txfLabel = new JLabel[8];
+//		private JTextField[] txfField = new JTextField[8];
+//		private JButton btnAddVolunteer;
 		
 		/**
 		 * Creates the frame and components and launches the GUI.
@@ -111,6 +116,7 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 			
 			btnDelete = new JButton("View/Cancel Job");
 			btnDelete.addActionListener(this);
+
 			
 			btnLogout = new JButton("Logout");
 			btnLogout.addActionListener(this);
@@ -289,11 +295,11 @@ public class VolunteerView extends JFrame implements ActionListener, TableModelL
 				int num = (Integer.parseInt(txxfName.getText()));
 				db.deleteMyJob(myVol.getMyUserId(), num);
 				JOptionPane.showMessageDialog(null, "Job "+num+ " Successfully Deleted!");
+				this.repaint();
 				pnlContent.add(pnlDelete);
 				pnlContent.revalidate();				
 				this.repaint();
-			}
-			else if (e.getSource() == btnLogout) {
+			} else if (e.getSource() == btnLogout) {
 				this.dispose();
 			}	
 		}
